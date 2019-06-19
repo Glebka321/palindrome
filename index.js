@@ -1,3 +1,5 @@
+module.exports = Phrase;
+
 //reverses a string
 function reverse(string) {
   return Array.from(string).reverse().join("");
@@ -8,26 +10,30 @@ function reverse(string) {
 function Phrase(content) {
   this.content = content;
 
-  this.processor = function(string) {
-    return string.toLowerCase();
-  }
+  /*this.processor = function(string) {
+    return string.letters().toLowerCase();
+  }*/
   this.processedContent = function processedContent() {
-    return this.processor(this.content);
+    return this.letters().toLowerCase();
 
   }
+
+  this.letters = function letters() {
+    /*let theLetters = [];
+    const letterRegex = /[a-z]/i;
+    Array.from(this.content).forEach(function(character) {
+      if (character.match(letterRegex)) {
+        theLetters.push(character);
+      }
+    });
+    return theLetters.join("");*/
+    return (this.content.match(/[a-z]/gi) || []).join("");
+  }
+
   this.palindrome = function palindrome() {
     return this.processedContent() === reverse(this.processedContent());
   }
 
+
+
 }
-
-function TranslatedPhrase(content, translation) {
-  this.content = content;
-  this.translation = translation;
-
-  this.processedContent = function processedContent() {
-    return this.processor(this.translation);
-  }
-}
-
-TranslatedPhrase.prototype = new Phrase();
